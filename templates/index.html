@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Game</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <!-- Favicons -->
+  <link href="../static/img/favicon.png" rel="icon">
+  <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.6/dist/aos.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Main CSS File -->
+  <link href="../static/css/main.css" rel="stylesheet">
+</head>
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-end">
+      <a href="{{url_for('index')}}" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">GAME</h1>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="{{url_for('index')}}" class="active">Home</a></li>
+          <li><a href="{{url_for('index')}}#about">About</a></li>
+          <li><a href="{{url_for('index')}}#portfolio">Games</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <a class="btn-getstarted" href="{{url_for('add_game')}}">Share Your Game!</a>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+      <img src="../static/img/hero-bg.jpg" alt="" data-aos="fade-in" class="">
+      <div class="container text-center" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <h2>Share your Game!</h2>
+            <p>Share your self-made game to get users</p>
+            <a href="#about" class="btn-get-started">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-6 position-relative align-self-start order-lg-last order-first" data-aos="fade-up" data-aos-delay="200">
+            <img src="../static/img/about.jpg" class="img-fluid" alt="">
+            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn"></a>
+          </div>
+          <div class="col-lg-6 content order-last order-lg-first" data-aos="fade-up" data-aos-delay="100">
+            <h3>About Handmade Games</h3>
+            <p>
+              Handmade Games is a platform designed for indie developers, hobbyists, and creators to share and discover unique, self-made games. Whether it's a simple browser game or a full-fledged indie project, we welcome all game developers to showcase their talent.
+            </p>
+            <ul>
+              <li>
+                <i class="bi bi-diagram-3"></i>
+                <div>
+                  <h5>Support for Independent Developers</h5>
+                  <p>Connect with a community of like-minded creators and gamers to get feedback and recognition.</p>
+                </div>
+              </li>
+              <li>
+                <i class="bi bi-fullscreen-exit"></i>
+                <div>
+                  <h5>Showcase Your Unique Creations</h5>
+                  <p>Share your passion for game development with others who appreciate handcrafted, independent games.</p>
+                </div>
+              </li>
+              <li>
+                <i class="bi bi-broadcast"></i>
+                <div>
+                  <h5>Reach New Audiences</h5>
+                  <p>Your games will be seen by a wide audience of players who are excited to discover new and creative projects.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+   <!-- Portfolio Section -->
+<section id="portfolio" class="portfolio section">
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Games</h2>
+    <p>Check out the awesome handmade games shared by the community!</p>
+  </div><!-- End Section Title -->
+  <div class="container">
+    <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+      <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+        <li data-filter="*" class="filter-active">All</li>
+        <li data-filter=".filter-action">Action</li>
+        <li data-filter=".filter-sports">Sports</li>
+        <li data-filter=".filter-rpg">RPG</li>
+        <li data-filter=".filter-puzzles">Puzzles</li>
+      </ul><!-- End Portfolio Filters -->
+
+<div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+  <!-- Loop through games and render each game as a portfolio item -->
+  {% for game in games %}
+  <div class="col-lg-3 col-md-4 portfolio-item isotope-item filter-{{ game.category | lower }}">
+    <div class="portfolio-content h-100">
+      <a href="{{ url_for('details', game_id=game.id) }}">
+        <img src="{{ url_for('static', filename='uploads/' + game.image_filename) }}" class="img-fluid" alt="{{ game.title }}">
+      </a>
+      <div class="portfolio-info">
+        <h4>{{ game.title }}</h4>
+        <p>{{ game.description | truncate(50, True) }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="col-lg-3 col-md-4 portfolio-item">
+    <div class="portfolio-content add-new-game h-100 mt-md-4">
+      <i class="bi bi-plus-circle"></i>
+      <h4>Add New Game</h4>
+      <p>Click here to share your own game with the community.</p>
+      <a href="{{ url_for('add_game') }}" class="stretched-link"></a>
+    </div>
+  </div><!-- End Add New Game Item -->
+</div><!-- End Portfolio Container -->
+
+  </div>
+</section><!-- /Portfolio Section -->
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container copyright text-center">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Games</strong> <span>All Rights Reserved</span></p>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@3.0.0-beta.6/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/purecounterjs@1.5.0/dist/purecounter_vanilla.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/isotope-layout@3.0.6/dist/isotope.pkgd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="../static/js/main.js"></script>
+  <script>
+// main.js or within a <script> tag
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize Isotope
+    const iso = new Isotope('.isotope-container', {
+        itemSelector: '.portfolio-item',
+        layoutMode: 'masonry',
+        filter: '*', // Default filter is all items
+    });
+
+    const filtersElem = document.querySelector('.portfolio-filters');
+    filtersElem.addEventListener('click', (event) => {
+        if (!matchesSelector(event.target, 'li')) {
+            return;
+        }
+        const filterValue = event.target.getAttribute('data-filter');
+
+        const newGameCard = '.add-new-game';
+        iso.arrange({
+            filter: filterValue === '*' ? '*' : `${filterValue}, ${newGameCard}`
+        });
+
+        const filterButtons = filtersElem.querySelectorAll('li');
+        filterButtons.forEach(button => {
+            button.classList.remove('filter-active');
+        });
+        event.target.classList.add('filter-active');
+    });
+});
+
+function matchesSelector(element, selector) {
+    return (element.matches || element.webkitMatchesSelector || element.msMatchesSelector).call(element, selector);
+}
+
+  </script>
+
+</body>
+</html>

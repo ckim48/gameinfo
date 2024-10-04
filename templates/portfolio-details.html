@@ -57,26 +57,35 @@
     </div>
 
     <!-- Portfolio Details Section -->
-    <section id="portfolio-details" class="portfolio-details section">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="col-lg-8">
-            <img src="{{ url_for('static', filename='uploads/' + game.image_filename) }}" class="img-fluid" alt="{{ game.title }}">
-          </div>
+<!-- Portfolio Details Section -->
+<section id="portfolio-details" class="portfolio-details section">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-8">
+        <img src="{{ url_for('static', filename='uploads/' + game.image_filename) }}" class="img-fluid" alt="{{ game.title }}">
+      </div>
 
-          <div class="col-lg-4">
-            <div class="portfolio-info">
-              <h3>Project Information</h3>
-              <ul>
-                <li><strong>Title:</strong> {{ game.title }}</li>
-                <li><strong>Category:</strong> {{ game.category }}</li>
-                <li><strong>Description:</strong> {{ game.description }}</li>
-              </ul>
-            </div>
-          </div>
+      <div class="col-lg-4">
+        <div class="portfolio-info">
+          <h3>Project Information</h3>
+          <ul>
+            <li><strong>Title:</strong> {{ game.title }}</li>
+            <li><strong>Category:</strong> {{ game.category }}</li>
+            <li><strong>Description:</strong> {{ game.description }}</li>
+            <li><strong>Source code:</strong>
+              {% if game.source %}
+                <a href="{{ game.source }}">{{ game.source }}</a>
+              {% else %}
+                Not available
+              {% endif %}
+            </li>
+          </ul>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
   </main>
 

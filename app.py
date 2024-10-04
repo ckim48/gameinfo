@@ -72,6 +72,9 @@ def submit_game():
     category = request.form['gameCategory']
     description = request.form['gameDescription']
     file = request.files['gameImage']
+    source = request.form['gameLink']
+    if source == "":
+        source = None
 
     if not title or not category or not description:
         flash('All fields are required!')
@@ -89,8 +92,8 @@ def submit_game():
 
     conn = get_db_connection()
     conn.execute(
-        'INSERT INTO games (title, category, description, image_filename) VALUES (?, ?, ?, ?)',
-        (title, category, description, unique_filename)
+        'INSERT INTO games (title, category, description, image_filename, source) VALUES (?, ?, ?, ?,?)',
+        (title, category, description, unique_filename, source)
     )
     conn.commit()
     conn.close()

@@ -128,7 +128,7 @@
           <p>{{ game.description | truncate(50, True) }}</p>
         </div>
         <div class="mt-auto text-end"> <!-- Added mt-auto for spacing -->
-          <a href="{{ url_for('details', game_id=game.id) }}" class="btn btn-outline-success btn-sm">
+          <a href="{{ url_for('details', game_id=game.id) }}" class="btn btn-outline-success btn-sm mt-3">
               <i class="bi bi-info-circle"></i> More Details
           </a> <!-- Enhanced More Details Button -->
         </div>

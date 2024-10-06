@@ -876,7 +876,12 @@ section,
   font-size: 24px;
   color: var(--heading-color);
 }
-
+.btn-primary{
+  border: 1px solid #dca2f4 !important;
+}
+.btn-primary:hover{
+  background-color: #dca2f4 !important;
+}
 .hero .btn-get-started {
   color: var(--default-color);
   font-weight: 400;

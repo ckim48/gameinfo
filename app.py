@@ -20,10 +20,9 @@ def allowed_file(filename):
 # Function to connect to SQLite database
 def get_db_connection():
     conn = sqlite3.connect('games.db')
-    conn.row_factory = sqlite3.Row  # For accessing columns by name
+    conn.row_factory = sqlite3.Row
     return conn
 
-# Create the games table if it doesn't exist
 def create_table():
     conn = get_db_connection()
     conn.execute('''
@@ -32,13 +31,25 @@ def create_table():
             title TEXT NOT NULL,
             category TEXT NOT NULL,
             description TEXT NOT NULL,
-            image_filename TEXT NOT NULL
+            image_filename TEXT NOT NULL,
+            email TEXT NOT NULL
+        )
+    ''')
+
+    conn.execute('''
+        CREATE TABLE IF NOT EXISTS reviews (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            game_id INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            review TEXT NOT NULL,
+            FOREIGN KEY (game_id) REFERENCES games (id)
         )
     ''')
     conn.commit()
     conn.close()
 
-create_table()  # Ensure the table is created when the app starts
+
+create_table()
 
 @app.route('/')
 def index():
@@ -49,17 +60,30 @@ def index():
     return render_template('index.html', games=games)
 
 # Route to display individual game details
-@app.route('/details/<int:game_id>')
+@app.route('/details/<int:game_id>', methods=['GET', 'POST'])
 def details(game_id):
     conn = get_db_connection()
+
+    if request.method == 'POST':
+        name = request.form['name']
+        review = request.form['review']
+
+        if name and review:
+            conn.execute('INSERT INTO reviews (game_id, name, review) VALUES (?, ?, ?)',
+                         (game_id, name, review))
+            conn.commit()
+            flash('Review submitted successfully!')
+
     game = conn.execute('SELECT * FROM games WHERE id = ?', (game_id,)).fetchone()
+    reviews = conn.execute('SELECT * FROM reviews WHERE game_id = ?', (game_id,)).fetchall()
     conn.close()
 
     if game is None:
         flash("Game not found!")
         return redirect(url_for('index'))
 
-    return render_template('portfolio-details.html', game=game)
+    return render_template('portfolio-details.html', game=game, reviews=reviews)
+
 
 @app.route('/add_game')
 def add_game():
@@ -73,6 +97,7 @@ def submit_game():
     description = request.form['gameDescription']
     file = request.files['gameImage']
     source = request.form['gameLink']
+    email = request.form['email']
     if source == "":
         source = None
 
@@ -92,8 +117,8 @@ def submit_game():
 
     conn = get_db_connection()
     conn.execute(
-        'INSERT INTO games (title, category, description, image_filename, source) VALUES (?, ?, ?, ?,?)',
-        (title, category, description, unique_filename, source)
+        'INSERT INTO games (title, category, description, image_filename, source, email) VALUES (?, ?, ?, ?, ?, ?)',
+        (title, category, description, unique_filename, source, email)
     )
     conn.commit()
     conn.close()

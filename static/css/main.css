@@ -864,7 +864,10 @@ section,
   position: relative;
   z-index: 3;
 }
-
+.myimg3{
+  width: 85%;
+  border-radius:20px;
+}
 .hero h2 {
   margin: 0;
   font-size: 48px;
@@ -939,13 +942,24 @@ section,
   line-height: 0;
 }
 
+
+
+
+
+.app-name{
+  font-family: "Lilita One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 .about .content ul h5 {
   font-size: 18px;
   font-weight: 700;
 }
 
 .about .content ul p {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .about .content p:last-child {

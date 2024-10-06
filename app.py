@@ -32,7 +32,8 @@ def create_table():
             category TEXT NOT NULL,
             description TEXT NOT NULL,
             image_filename TEXT NOT NULL,
-            email TEXT NOT NULL
+            email TEXT NOT NULL,
+            verified INTEGER DEFAULT 0  -- New column for verification status
         )
     ''')
 
@@ -54,10 +55,11 @@ create_table()
 @app.route('/')
 def index():
     conn = get_db_connection()
-    games = conn.execute('SELECT * FROM games').fetchall()
+    games = conn.execute('SELECT * FROM games WHERE verified = 1').fetchall()
     conn.close()
 
     return render_template('index.html', games=games)
+
 
 # Route to display individual game details
 @app.route('/details/<int:game_id>', methods=['GET', 'POST'])
@@ -89,6 +91,7 @@ def details(game_id):
 def add_game():
     return render_template('add_game.html')
 
+
 @app.route('/submit-game', methods=['POST'])
 def submit_game():
     # Get form data
@@ -98,33 +101,37 @@ def submit_game():
     file = request.files['gameImage']
     source = request.form['gameLink']
     email = request.form['email']
+
+    # Set default source if empty
     if source == "":
         source = None
 
     if not title or not category or not description:
-        flash('All fields are required!')
+        flash('All fields are required!', 'danger')
         return redirect(request.url)
 
     if file and allowed_file(file.filename):
         file_extension = file.filename.rsplit('.', 1)[1].lower()
         unique_filename = f"{uuid.uuid4().hex}.{file_extension}"
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], unique_filename))
 
-        file.save(filepath)
+        # Insert game into database with verified set to 0
+        conn = get_db_connection()
+        conn.execute('''
+            INSERT INTO games (title, category, description, image_filename, email, verified)
+            VALUES (?, ?, ?, ?, ?, 0)
+        ''', (title, category, description, unique_filename, email))
+        conn.commit()
+        conn.close()
+
+        flash(
+            'Thank you for submitting your game. Your game will be reviewed, and you will receive an email with updates soon.',
+            'success')
     else:
-        flash('Invalid file type! Only images are allowed.')
-        return redirect(request.url)
+        flash('Invalid file type. Please upload a valid image file.', 'danger')
 
-    conn = get_db_connection()
-    conn.execute(
-        'INSERT INTO games (title, category, description, image_filename, source, email) VALUES (?, ?, ?, ?, ?, ?)',
-        (title, category, description, unique_filename, source, email)
-    )
-    conn.commit()
-    conn.close()
+    return redirect(url_for('add_game'))
 
-    flash('Game submitted successfully!')
-    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
